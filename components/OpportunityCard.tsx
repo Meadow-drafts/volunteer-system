@@ -8,11 +8,15 @@ import React from "react";
 import { Button } from "./ui/button";
 import { Author, Opportunity } from "@/sanity.types";
 import { Skeleton } from "./ui/skeleton";
+import ClipboardButton from "./ClipBoard";
+import { auth } from "@/auth";
 
-export type OpportunityCardType = Omit<Opportunity, "author"> & {author?:Author};
+export type OpportunityCardType = Omit<Opportunity, "author"> & {
+  author?: Author;
+};
 // without prop of author
 
-const OpportunityCard = ({ post }: { post: OpportunityCardType }) => {
+const OpportunityCard = async({ post }: { post: OpportunityCardType }) => {
   const {
     _createdAt,
     description,
@@ -23,6 +27,8 @@ const OpportunityCard = ({ post }: { post: OpportunityCardType }) => {
     image,
     _id,
   } = post;
+      const session= await auth();  
+
   return (
     <li className="startup-card group">
       <div className="flex-between">
@@ -42,8 +48,8 @@ const OpportunityCard = ({ post }: { post: OpportunityCardType }) => {
           </Link>
         </div>
         <Link href={`/user/${author?._id}`}>
-        <Image
-            src={author?.image ||" "}
+          <Image
+            src={author?.image || " "}
             alt={author?.name!}
             width={48}
             height={48}
@@ -57,13 +63,20 @@ const OpportunityCard = ({ post }: { post: OpportunityCardType }) => {
       </Link>
       <div className="flex-between gap-3 mt-5">
         <Link href={`/?query=${category?.toLowerCase()}`}>
-            <p className="text-16-medium">{category}</p>
+          <p className="text-16-medium">{category}</p>
         </Link>
         <Button className="startup-card_btn " asChild>
-            <Link href={`/opportunity/${_id}`}>
-                <span className="">Read More</span>
-            </Link>
+          <Link href={`/opportunity/${_id}`}>
+            <span className="">Read More</span>
+          </Link>
         </Button>
+      </div>
+      <div
+      className={`flex flex-col pt-2  items-end justify-between ${session?.id === author?._id ? "hidden pt-0" : ""}`}    
+      
+      >
+        <p className="text-xs font-semibold">To volunteer contact</p>
+        <ClipboardButton textToCopy={author?.email || ""} />
       </div>
     </li>
   );
@@ -71,11 +84,11 @@ const OpportunityCard = ({ post }: { post: OpportunityCardType }) => {
 
 export const OpportunityCardSkeleton = () => {
   <>
-    {[0,1,2,3,4].map((index:number) => (
-      <li key={cn('skeleton', index)}>
-          <Skeleton className="startup-card_skeleton" />
+    {[0, 1, 2, 3, 4].map((index: number) => (
+      <li key={cn("skeleton", index)}>
+        <Skeleton className="startup-card_skeleton" />
       </li>
     ))}
-  </>
-}
+  </>;
+};
 export default OpportunityCard;

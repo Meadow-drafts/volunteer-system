@@ -33,7 +33,7 @@ const page = async({params}:{params:Promise<{id:string}>}) => {
   return (
     <>
     <section className='pink_container !min-h-[230px'>
-        <p className='tag'>
+        <p className='tag text-primary'>
             {formatDate(post?._createdAt)}
         </p>
         <h1 className='heading'>{post?.title}</h1>

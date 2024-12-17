@@ -30,8 +30,6 @@ const OpportunityForm = () => {
 
             await formSchema.parseAsync(formValues)
 
-            console.log(formValues)
-
             const result = await createOpportunity(prevState, formData, pitch)
 
 

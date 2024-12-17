@@ -2,7 +2,6 @@ import OpportunityCard, { OpportunityCardType } from "@/components/OpportunityCa
 import SearchForm from "../../components/SearchForm";
 import { OPPORTUNITIES_QUERY } from "@/sanity/lib/queries";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
-import { auth } from "@/auth";
 
 export default async function Home({
   searchParams,
@@ -10,9 +9,7 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
 
-  const session = await auth();
 
-  console.log(session?.id)
 
   const query = (await searchParams).query;
 

@@ -62,7 +62,10 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={''}>{children} <Toaster/></body>
+      <body className={''}>
+        <Toaster/>
+        {children} 
+        </body>
     </html>
   );
 }

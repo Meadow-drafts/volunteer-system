@@ -10,7 +10,7 @@ export const OPPORTUNITIES_QUERY = defineQuery(
       slug,
       _createdAt,
       author->{
-        _id, name, image, bio
+        _id, name, image, bio, email
       },
       views,
       description,
@@ -26,7 +26,7 @@ export const OPPORTUNITY_QUERY_BY_ID = defineQuery(
   slug,
   _createdAt,
   author->{
-    _id, name,username,image,bio
+    _id, name,username,image,bio,email
   }, 
   views,
   description,
@@ -77,7 +77,7 @@ export const OPPORTUNITIES_BY_AUTHOR_QUERY = defineQuery(
       slug,
       _createdAt,
       author->{
-        _id, name, image, bio
+        _id, name, image, bio,email
       },
       views,
       description,
@@ -101,7 +101,8 @@ export const PLAYLIST_BY_SLUG_QUERY =
       name,
       slug,
       image,
-      bio
+      bio,
+      email
     },
     views,
     description,
