@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @next/next/no-img-element */
-import { cn, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { EyeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 import { Author, Opportunity } from "@/sanity.types";
-import { Skeleton } from "./ui/skeleton";
 import ClipboardButton from "./ClipBoard";
 import { auth } from "@/auth";
 
@@ -16,7 +15,7 @@ export type OpportunityCardType = Omit<Opportunity, "author"> & {
 };
 // without prop of author
 
-const OpportunityCard = async({ post }: { post: OpportunityCardType }) => {
+const OpportunityCard = async ({ post }: { post: OpportunityCardType }) => {
   const {
     _createdAt,
     description,
@@ -27,7 +26,7 @@ const OpportunityCard = async({ post }: { post: OpportunityCardType }) => {
     image,
     _id,
   } = post;
-      const session= await auth();  
+  const session = await auth();
 
   return (
     <li className="startup-card group">
@@ -72,8 +71,7 @@ const OpportunityCard = async({ post }: { post: OpportunityCardType }) => {
         </Button>
       </div>
       <div
-      className={`flex flex-col pt-2  items-end justify-between ${session?.id === author?._id ? "hidden pt-0" : ""}`}    
-      
+        className={`flex flex-col pt-2  items-end justify-between ${session?.id === author?._id ? "hidden pt-0" : ""}`}
       >
         <p className="text-xs font-semibold">To volunteer contact</p>
         <ClipboardButton textToCopy={author?.email || ""} />
@@ -82,13 +80,4 @@ const OpportunityCard = async({ post }: { post: OpportunityCardType }) => {
   );
 };
 
-export const OpportunityCardSkeleton = () => {
-  <>
-    {[0, 1, 2, 3, 4].map((index: number) => (
-      <li key={cn("skeleton", index)}>
-        <Skeleton className="startup-card_skeleton" />
-      </li>
-    ))}
-  </>;
-};
 export default OpportunityCard;

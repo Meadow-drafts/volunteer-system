@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Design Credit
+
+JS Mastery
+
 ## Getting Started
 
 First, run the development server:
@@ -35,7 +39,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-navigate to 
-http://localhost:3000/studio/structure/author;sZ6EyOfhN45Bkk0uyEOuaH for studio and 
+navigate to
+http://localhost:3000/studio/structure/author;sZ6EyOfhN45Bkk0uyEOuaH for studio and
 
 http://localhost:3000/sentry-example-page for santry

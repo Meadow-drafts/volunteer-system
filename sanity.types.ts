@@ -172,7 +172,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: OPPORTUNITIES_QUERY
-// Query: *[_type == 'opportunity' && defined(slug.current) &&  !defined($search) || title match $search || category match $search || author->name match $search] | order(_createdAt desc) {      _id,      _type,      _updatedAt,      _rev,      title,      slug,      _createdAt,      author->{        _id, name, image, bio      },      views,      description,      image,      category    }
+// Query: *[_type == 'opportunity' && defined(slug.current) &&  !defined($search) || title match $search || category match $search || author->name match $search] | order(_createdAt desc) {      _id,      _type,      _updatedAt,      _rev,      title,      slug,      _createdAt,      author->{        _id, name, image, bio, email      },      views,      description,      image,      category    }
 export type OPPORTUNITIES_QUERYResult = Array<{
   _id: string;
   _type: "author";
@@ -199,6 +199,7 @@ export type OPPORTUNITIES_QUERYResult = Array<{
     name: string | null;
     image: string | null;
     bio: string | null;
+    email: string | null;
   } | null;
   views: number | null;
   description: string | null;
@@ -232,7 +233,7 @@ export type OPPORTUNITIES_QUERYResult = Array<{
   category: null;
 }>;
 // Variable: OPPORTUNITY_QUERY_BY_ID
-// Query: *[_type == 'opportunity' && _id==$id][0]{  _id,  title,  slug,  _createdAt,  author->{    _id, name,username,image,bio  },   views,  description,  image,    category,    pitch,}
+// Query: *[_type == 'opportunity' && _id==$id][0]{  _id,  title,  slug,  _createdAt,  author->{    _id, name,username,image,bio,email  },   views,  description,  image,    category,    pitch,}
 export type OPPORTUNITY_QUERY_BY_IDResult = {
   _id: string;
   title: string | null;
@@ -244,6 +245,7 @@ export type OPPORTUNITY_QUERY_BY_IDResult = {
     username: string | null;
     image: string | null;
     bio: string | null;
+    email: string | null;
   } | null;
   views: number | null;
   description: string | null;
@@ -280,7 +282,7 @@ export type AUTHOR_BY_ID_QUERYResult = {
   bio: string | null;
 } | null;
 // Variable: OPPORTUNITIES_BY_AUTHOR_QUERY
-// Query: *[_type == 'opportunity' && author._ref == $id] | order(_createdAt desc) {      _id,      _type,      _updatedAt,      _rev,      title,      slug,      _createdAt,      author->{        _id, name, image, bio      },      views,      description,      image,      category    }
+// Query: *[_type == 'opportunity' && author._ref == $id] | order(_createdAt desc) {      _id,      _type,      _updatedAt,      _rev,      title,      slug,      _createdAt,      author->{        _id, name, image, bio,email      },      views,      description,      image,      category    }
 export type OPPORTUNITIES_BY_AUTHOR_QUERYResult = Array<{
   _id: string;
   _type: "opportunity";
@@ -294,6 +296,7 @@ export type OPPORTUNITIES_BY_AUTHOR_QUERYResult = Array<{
     name: string | null;
     image: string | null;
     bio: string | null;
+    email: string | null;
   } | null;
   views: number | null;
   description: string | null;
@@ -301,19 +304,19 @@ export type OPPORTUNITIES_BY_AUTHOR_QUERYResult = Array<{
   category: string | null;
 }>;
 // Variable: PLAYLIST_BY_SLUG_QUERY
-// Query: *[_type == "playlist" && slug.current == $slug][0]{  _id,  title,  slug,  select[]->{    _id,    _createdAt,    title,    slug,    author->{      _id,      name,      slug,      image,      bio    },    views,    description,    category,    image,    pitch  }}
+// Query: *[_type == "playlist" && slug.current == $slug][0]{  _id,  title,  slug,  select[]->{    _id,    _createdAt,    title,    slug,    author->{      _id,      name,      slug,      image,      bio,      email    },    views,    description,    category,    image,    pitch  }}
 export type PLAYLIST_BY_SLUG_QUERYResult = null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == 'opportunity' && defined(slug.current) &&  !defined($search) || title match $search || category match $search || author->name match $search] | order(_createdAt desc) {\n      _id,\n      _type,\n      _updatedAt,\n      _rev,\n      title,\n      slug,\n      _createdAt,\n      author->{\n        _id, name, image, bio\n      },\n      views,\n      description,\n      image,\n      category\n    }": OPPORTUNITIES_QUERYResult;
-    "*[_type == 'opportunity' && _id==$id][0]{\n  _id,\n  title,\n  slug,\n  _createdAt,\n  author->{\n    _id, name,username,image,bio\n  }, \n  views,\n  description,\n  image,\n    category,\n    pitch,\n}": OPPORTUNITY_QUERY_BY_IDResult;
+    "*[_type == 'opportunity' && defined(slug.current) &&  !defined($search) || title match $search || category match $search || author->name match $search] | order(_createdAt desc) {\n      _id,\n      _type,\n      _updatedAt,\n      _rev,\n      title,\n      slug,\n      _createdAt,\n      author->{\n        _id, name, image, bio, email\n      },\n      views,\n      description,\n      image,\n      category\n    }": OPPORTUNITIES_QUERYResult;
+    "*[_type == 'opportunity' && _id==$id][0]{\n  _id,\n  title,\n  slug,\n  _createdAt,\n  author->{\n    _id, name,username,image,bio,email\n  }, \n  views,\n  description,\n  image,\n    category,\n    pitch,\n}": OPPORTUNITY_QUERY_BY_IDResult;
     "*[_type == 'opportunity' && _id==$id][0]{\n    _id,\n    views\n  }": OPPORTUNITY_VIEWS_QUERYResult;
     "*[_type == 'author' && id == $id][0]{\n    _id,\n    id,\n    name,\n    username,\n    email,\n    image,\n    bio\n  }": AUTHOR_BY_GITHUB_ID_QUERYResult;
     "*[_type == 'author' && _id == $id][0]{\n    _id,\n    id,\n    name,\n    username,\n    email,\n    image,\n    bio\n  }": AUTHOR_BY_ID_QUERYResult;
-    "*[_type == 'opportunity' && author._ref == $id] | order(_createdAt desc) {\n      _id,\n      _type,\n      _updatedAt,\n      _rev,\n      title,\n      slug,\n      _createdAt,\n      author->{\n        _id, name, image, bio\n      },\n      views,\n      description,\n      image,\n      category\n    }": OPPORTUNITIES_BY_AUTHOR_QUERYResult;
-    "*[_type == \"playlist\" && slug.current == $slug][0]{\n  _id,\n  title,\n  slug,\n  select[]->{\n    _id,\n    _createdAt,\n    title,\n    slug,\n    author->{\n      _id,\n      name,\n      slug,\n      image,\n      bio\n    },\n    views,\n    description,\n    category,\n    image,\n    pitch\n  }\n}": PLAYLIST_BY_SLUG_QUERYResult;
+    "*[_type == 'opportunity' && author._ref == $id] | order(_createdAt desc) {\n      _id,\n      _type,\n      _updatedAt,\n      _rev,\n      title,\n      slug,\n      _createdAt,\n      author->{\n        _id, name, image, bio,email\n      },\n      views,\n      description,\n      image,\n      category\n    }": OPPORTUNITIES_BY_AUTHOR_QUERYResult;
+    "*[_type == \"playlist\" && slug.current == $slug][0]{\n  _id,\n  title,\n  slug,\n  select[]->{\n    _id,\n    _createdAt,\n    title,\n    slug,\n    author->{\n      _id,\n      name,\n      slug,\n      image,\n      bio,\n      email\n    },\n    views,\n    description,\n    category,\n    image,\n    pitch\n  }\n}": PLAYLIST_BY_SLUG_QUERYResult;
   }
 }
