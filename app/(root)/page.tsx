@@ -1,4 +1,4 @@
-import OpportunityCard, { OpportunityCardType } from "@/components/OpportunityCard";
+import OpportunityCard from "@/components/OpportunityCard";
 import SearchForm from "../../components/SearchForm";
 import { OPPORTUNITIES_QUERY } from "@/sanity/lib/queries";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
@@ -8,15 +8,15 @@ export default async function Home({
 }: {
   searchParams: Promise<{ query?: string }>;
 }) {
-
-
-
   const query = (await searchParams).query;
 
-  const params = {search:query || null} //for the search functionality
+  const params = { search: query || null }; //for the search functionality
 
   // const posts = await client.fetch(OPPORTUNITIES_QUERY)
-  const {data:posts} = await sanityFetch({query:OPPORTUNITIES_QUERY, params}) //to enable live content display ie revalidation
+  const { data: posts } = await sanityFetch({
+    query: OPPORTUNITIES_QUERY,
+    params,
+  }); //to enable live content display ie revalidation
 
   return (
     <>
@@ -37,16 +37,17 @@ export default async function Home({
         </p>
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts?.map((post:OpportunityCardType) => (
-              <OpportunityCard key={post?._id} post={post} />
-            ))
-          ):(
+            posts?.map(
+              (
+                post: any // eslint-disable-line @typescript-eslint/no-explicit-any
+              ) => <OpportunityCard key={post?._id} post={post} />
+            )
+          ) : (
             <p className="no-result">No Opportunities found</p>
           )}
-          
         </ul>
       </section>
-      <SanityLive/>
+      <SanityLive />
     </>
   );
 }
