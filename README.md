@@ -43,3 +43,6 @@ navigate to
 http://localhost:3000/studio/structure/author;sZ6EyOfhN45Bkk0uyEOuaH for studio and
 
 http://localhost:3000/sentry-example-page for santry
+
+![image](https://github.com/user-attachments/assets/d2785f85-60dd-45fc-9e69-0253a9445643)
+
