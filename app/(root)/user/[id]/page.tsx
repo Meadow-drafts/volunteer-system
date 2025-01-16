@@ -46,7 +46,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <ul className="card_grid-sm">
             {/* Enabling ppr for this section cos we want the data to be dynamic while the rest of the other page stays static */}
             <Suspense fallback={<OpportunityCardSkeleton />}>
-              <UserOpportunities id={Promise.resolve({ id })} />
+              <UserOpportunities id={id} />
             </Suspense>
           </ul>
         </div>

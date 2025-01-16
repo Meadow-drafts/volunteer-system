@@ -13,6 +13,7 @@ interface GitHubProfile extends DefaultProfile {
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  secret: process.env.AUTH_SECRET,
   providers: [GitHub],
   callbacks: {
     async signIn({ user: { name, email, image }, profile }) {
@@ -50,6 +51,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
 
       return token;
+    },
+    async session({ session, token }) {
+      Object.assign(session, { id: token.id });
+      return session;
     },
   },
 });

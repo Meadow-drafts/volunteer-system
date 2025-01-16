@@ -1,14 +1,14 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @next/next/no-img-element */
 import { formatDate } from "@/lib/utils";
 import { EyeIcon } from "lucide-react";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 import { Author, Opportunity } from "@/sanity.types";
 import ClipboardButton from "./ClipBoard";
 import { auth } from "@/auth";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export type OpportunityCardType = Omit<Opportunity, "author"> & {
   author?: Author;
@@ -47,13 +47,17 @@ const OpportunityCard = async ({ post }: { post: OpportunityCardType }) => {
           </Link>
         </div>
         <Link href={`/user/${author?._id}`}>
-          <Image
-            src={author?.image || " "}
+          {/* <Image
+            src={author?.image || ""}
             alt={author?.name!}
             width={48}
             height={48}
             className="rounded-full"
-          />
+          /> */}
+          <Avatar className="size-10 border">
+            <AvatarImage src={author?.image || ""} alt={author?.name || ""} />
+            <AvatarFallback>AV</AvatarFallback>
+          </Avatar>
         </Link>
       </div>
       <Link href={`/opportunity/${_id}`}>
